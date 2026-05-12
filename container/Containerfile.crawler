@@ -1,0 +1,18 @@
+FROM ghcr.io/astral-sh/uv:alpine
+
+# Compiling Python bytecode is optional, but it can speed up the startup time
+# As long as we don't mount a dedicated cache we should disable it to keep the image size small
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_NO_CACHE=1
+
+RUN apk add --no-cache gcc python3-dev musl-dev linux-headers
+
+WORKDIR /app
+
+# Copy only requirements files
+COPY pyproject.toml uv.lock README.md ./
+RUN uv sync --frozen --no-dev --no-install-project
+
+# Copy project files
+COPY src ./src
+RUN uv sync --frozen --no-dev

@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Environments
+.env
+.venv/
+
+# Local data from the Zenodo archive
+data
+
+# Ruff stuff:
+.ruff_cache/
+
+logs/
+_old/
+.ipynb_checkpoints/
+
+# Generated plots
+plots/
